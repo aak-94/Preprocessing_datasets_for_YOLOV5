@@ -1,0 +1,7 @@
+{
+    "Datasets": {
+        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan",
+        "India": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/India"
+    },
+    "img_size": 600
+}
