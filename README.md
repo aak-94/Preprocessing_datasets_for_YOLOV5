@@ -19,6 +19,8 @@ This toolchain helps to pre-process the  multiple datasets simultaneously and pe
 Following image shows the working of the complete pre-processing pipeline
 ![image](https://github.com/aak-94/06_Preprocessing_datasets_for_YOLOV5/blob/master/flowchart.JPG)
 
+## Testing
+This pipline has been tested with the datasets for [object detection](https://data.mendeley.com/datasets/5ty2wb6gvg/1)
 ## Usage
 - download the repo
 - specify the paths of datasets in the datasets.json file
@@ -27,3 +29,4 @@ Following image shows the working of the complete pre-processing pipeline
 
 ## references:
 [Resize-pascal-voc](https://github.com/italojs/resize_dataset_pascalvoc)
+
