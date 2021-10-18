@@ -12,7 +12,7 @@ def get_path_lists(data_dir,seperator):
     image_list=[]
     images=[]
     for looproot, _, filenames in os.walk(data_dir):
-        for filename in filenames[:20]:
+        for filename in filenames:          #limit the the images number here during trials
             if filename.endswith('xml'):
                 xml_list.append(os.path.join(looproot, filename))
             if filename.endswith('jpg'):
