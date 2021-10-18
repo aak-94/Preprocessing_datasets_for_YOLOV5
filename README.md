@@ -2,8 +2,8 @@
 Preprocessing_of_multiple_datasets_for_YOLO_models
 
 ## Goal
--To reduce the data-preprocessing for neural network training
--To facilitate the use of multiple datasets having different image sizes together
+- To reduce the data-preprocessing for neural network training
+- To facilitate the use of multiple datasets having different image sizes together
 
 ## Purpose
 This toolchain helps to pre-process the  multiple datasets simultaneously and performs follwoing tasks:
