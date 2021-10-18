@@ -15,6 +15,9 @@ This toolchain helps to pre-process the  multiple datasets simultaneously and pe
 - combines multiple dataset to the single dataset and then splits it in train-test datasets
 - generates the bar graph to visualize the dataset distribution before as well as after the split.
 
+# Requirements
+ basic python libraries numpy, matplotlib, opencv
+ 
 ## Working 
 Following image shows the working of the complete pre-processing pipeline
 ![image](https://github.com/aak-94/06_Preprocessing_datasets_for_YOLOV5/blob/master/flowchart.JPG)
