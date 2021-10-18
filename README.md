@@ -1,6 +1,10 @@
 # 06_Preprocessing_datasets_for_YOLOV5
 Preprocessing_of_multiple_datasets_for_YOLO_models
 
+## Goal
+-To reduce the data-preprocessing for neural network training
+-To facilitate the use of multiple datasets having different image sizes together
+
 ## Purpose
 This toolchain helps to pre-process the  multiple datasets simultaneously and performs follwoing tasks:
 - filtering the xmls without corrosponding img file
@@ -22,4 +26,4 @@ Following image shows the working of the complete pre-processing pipeline
 - run the file intial_filter.py
 
 ## references:
-![Resize-pascal-voc](https://github.com/italojs/resize_dataset_pascalvoc)
+[Resize-pascal-voc](https://github.com/italojs/resize_dataset_pascalvoc)
