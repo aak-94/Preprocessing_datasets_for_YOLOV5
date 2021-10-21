@@ -69,7 +69,7 @@ def create_result_dir(destination):
 
     return result_dir,obs_path,label_path,output_xmls,out_imgs,train_test_paths
 
-def write_marked_images (image_path,file, dict, obs_path):
+def write_marked_images (image_path,file, dict, obs_path,reshaping,img_size):
     '''
     img= input image
     dict = each key contains the list of class name & bounding box coordinates in order [cls_name, x_min, y_min, x_max, y_max]
@@ -77,11 +77,14 @@ def write_marked_images (image_path,file, dict, obs_path):
     '''
     font = cv2.FONT_HERSHEY_PLAIN
     img = cv2.imread(os.path.join(image_path, file))
+    if reshaping:
+        img=cv2.resize(img,(img_size,img_size))
     for key in dict:
         values=dict[key]
         cv2.rectangle(img, (values[1], values[2]), (values[3], values[4]), (255,255,0), 2)
         cv2.putText(img, values[0], (values[1], values[2]+ 30), font, 3, (255,0,0), 3)
     cv2.imwrite(os.path.join(obs_path,file),img)
+    print(file+' marked and saved to '+ obs_path)
 
 def get_class_names(xml_dict):
     '''
@@ -127,6 +130,7 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
     output:
     dict: for each key it holds a list. and each list contains the parameters for bounding box and class name.
     e.g. dict[key]: [cls_name, x_min, y_min, x_max, y_max]
+    reshaping: Boolean tag to enable the reshaping of images
 
     Stores the valid xmls and images to the given output paths
 
@@ -167,10 +171,11 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
                     temp_list=[]
                 else:
                     #read and scale the bnd box dimensions
-                    x_min = int(box.find('xmin').text)*scale_x
-                    y_min = int(box.find('ymin').text)*scale_y
-                    x_max = int(box.find('xmax').text)*scale_x
-                    y_max = int(box.find('ymax').text)*scale_y
+                    x_min = round(int(box.find('xmin').text)*scale_x)
+                    y_min = round(int(box.find('ymin').text)*scale_y)
+                    y_min = round(int(box.find('ymin').text)*scale_y)
+                    x_max = round(int(box.find('xmax').text)*scale_x)
+                    y_max = round(int(box.find('ymax').text)*scale_y)
 
                     #store new values
                     box.find('xmin').text = str(x_min)
@@ -189,10 +194,10 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
         tree.write(os.path.join(output_xmls,xml_name))
         img = cv2.imread(os.path.join(image_path, file_name))
         cv2.imwrite(os.path.join(out_img,file_name),img)
-    return dict
+    return dict,reshaping
 
 def addlabels(x,y):
-    space =max(y)/12
+    space =max(y)/55
     for i in range(len(x)):
         plt.text(i-0.25,y[i]+space,y[i])
 
@@ -212,12 +217,14 @@ def create_save_bar_chart(unique_class_names, all_class_names,plot_title,result_
     ax.set_title('{}'.format(plot_title))
     addlabels(unique_class_names,cls_count)
     #plt.show()
-    f.savefig(os.path.join(result_dir,(plot_title +'.tiff')),dpi=1200)
+    f.savefig(os.path.join(result_dir,(plot_title +'.tiff')),dpi=600)
+    print(plot_title +' saved to '+ result_dir)
 
 
 def train_test_split(total_images,train_test_paths,out_img,label_path,output_xmls):
     limit=math.ceil(total_images*0.8)
     x=0
+    print('spliting the dataset into train and test datasets...')
     while x <=total_images:
         label_list = os.listdir(label_path)
         if len(label_list)!=0:

@@ -34,13 +34,13 @@ def main(data_dir,destination):
         for i,file in enumerate(images[key]):  #processing one image 
             xml_name = file[:-4]+'.xml'
             if os.path.isfile(os.path.join(annotation_path[key],xml_name)):  #checking if corresponding xml exists
-                dict = xml_to_dict(annotation_path[key], xml_name, image_path[key], file, img_size, output_xmls,out_img)    
+                dict,reshaping = xml_to_dict(annotation_path[key], xml_name, image_path[key], file, img_size, output_xmls,out_img)    
                 if len(dict)!=0:                                        #checking if xml has an trainable object 
                     dict_to_yolo_label(file,dict,img_size,unique_class_names,label_path)
                     total_images+=1
                     if i % 10 ==0:
                         'print every 10th images for observation' 
-                        write_marked_images(image_path[key], file, dict, obs_path)
+                        write_marked_images(image_path[key], file, dict, obs_path,reshaping,img_size)
                 else:
                     print('empty xml_file: ', xml_name)
             else:
