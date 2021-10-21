@@ -1,6 +1,6 @@
 {
     "Datasets": {
-        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan"
+        "dataset_name": "Write here the path of the dataset"
     },
     "img_size": 600
 }
