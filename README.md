@@ -1,5 +1,5 @@
 # 06_Preprocessing_datasets_for_YOLOV5
-Preprocessing_of_multiple_datasets_for_YOLO_models
+Toolchain_for_preprocessing_multiple_datasets_for_YOLO_models
 
 ## Goal
 - To reduce the data-preprocessing for neural network training
