@@ -41,7 +41,7 @@ def main(data_dir,destination):
                     dict_to_yolo_label(file,dict,img_size,unique_class_names,label_path)
                     total_images+=1
                     if i % 100 ==0:
-                        'print every 10th images for observation' 
+                        #pass
                         write_marked_images(image_path[key], file, dict, obs_path,reshaping,img_size)
                 else:
                     print('empty xml_file: ', xml_name)
