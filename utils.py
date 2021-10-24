@@ -156,7 +156,7 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,dict_in,output_xml
         for index,obj in enumerate(root.iter('object')):
             cls_name = obj.find('name').text
             if cls_name in dict_in['replace_del']['tag_del']:
-                pass
+                continue
             elif cls_name in dict_in['replace_del']['tag_replacement'].keys():
                 cls_name=dict_in['replace_del']['tag_replacement'][cls_name]
             
