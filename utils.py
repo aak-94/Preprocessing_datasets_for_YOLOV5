@@ -67,6 +67,8 @@ def create_result_dir(destination):
     train_test_paths.append(test_lbls)
     train_test_paths.append(test_xmls)
 
+    shutil.copy('datasets.json',os.path.join(result_dir,'dataset.json'))
+
     return result_dir,obs_path,label_path,output_xmls,out_imgs,train_test_paths
 
 def write_marked_images (image_path,file, dict, obs_path,reshaping,img_size):
