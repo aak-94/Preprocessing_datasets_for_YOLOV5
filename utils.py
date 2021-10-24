@@ -112,11 +112,9 @@ def get_class_names(xml_dict):
                 for index,obj in enumerate(root.iter('object')):
                     cls_name = obj.find('name').text
                     all_class_names.append(cls_name)
-    unique_names=np.unique(np.array(all_class_names))
-    unique_names=unique_names.tolist()
-    return unique_names, all_class_names
+    return all_class_names
 
-def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xmls,out_img):
+def xml_to_dict(annotation_path,xml_name,image_path,file_name,dict_in,output_xmls,out_img):
     '''
     input:
     annotation_path : contating the path for annotation xml file
@@ -135,6 +133,7 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
     Stores the valid xmls and images to the given output paths
 
     '''
+    img_size =dict_in['img_size']
     infile_xml = open(os.path.join(annotation_path,xml_name))
     tree = ElementTree.parse(infile_xml)
     root = tree.getroot()
@@ -156,6 +155,11 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
     if root.find('object')!=None:           #if xml does not contain the trainable object
         for index,obj in enumerate(root.iter('object')):
             cls_name = obj.find('name').text
+            if cls_name in dict_in['replace_del']['tag_del']:
+                pass
+            elif cls_name in dict_in['replace_del']['tag_replacement'].keys():
+                cls_name=dict_in['replace_del']['tag_replacement'][cls_name]
+            
             for index_2,box in enumerate(obj.iter('bndbox')):
                 if not reshaping:
                     x_min = int(box.find('xmin').text)
@@ -193,6 +197,8 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,img_size,output_xm
                     temp_list=[]
         tree.write(os.path.join(output_xmls,xml_name))
         img = cv2.imread(os.path.join(image_path, file_name))
+        if reshaping:
+            img=cv2.resize(img,(img_size,img_size))
         cv2.imwrite(os.path.join(out_img,file_name),img)
     return dict,reshaping
 
@@ -213,11 +219,12 @@ def create_save_bar_chart(unique_class_names, all_class_names,plot_title,result_
     #%% Number of each class labels
     f, ax =plt.subplots()
     ax.bar(unique_class_names,cls_count)
-    ax.set(xlabel="Class Names", ylabel = "Total occurances")
+    ax.set_xlabel("Class Names")
+    ax.set_ylabel("Total occurances")
     ax.set_title('{}'.format(plot_title))
     addlabels(unique_class_names,cls_count)
     #plt.show()
-    f.savefig(os.path.join(result_dir,(plot_title +'.tiff')),dpi=600)
+    f.savefig(os.path.join(result_dir,(plot_title +'.tiff')))
     print(plot_title +' saved to '+ result_dir)
 
 
@@ -255,9 +262,43 @@ def train_test_split(total_images,train_test_paths,out_img,label_path,output_xml
             print('image for ', label_name, ' is not found: selecting next pair')
     print('Train and test datest are ready')
 
-def create_data_representation(data_dir,seperator,plot_title,result_dir):
+def create_data_representation(data_dir,seperator,plot_title,result_dir,data_dir_replace):
     xml_list, image_list, _,_,_= get_path_lists(data_dir,seperator)
     print('total_annotaitons: ', len(xml_list))
     print('total_images: ', len(image_list))
-    unique_class_names, all_class_names= get_class_names(xml_list)
+    all_class_names= get_class_names(xml_list)
+    unique_class_names,all_class_names=replace_del_names(all_class_names,data_dir_replace)
     create_save_bar_chart(unique_class_names, all_class_names,plot_title,result_dir)
+
+def create_data_representation(train_test_paths,seperator,plot_title,result_dir,data_dir_replace):
+    xml_list, image_list, _,_,_= get_path_lists(train_test_paths,seperator)
+    print('total_annotaitons: ', len(xml_list))
+    print('total_images: ', len(image_list))
+    all_class_names= get_class_names(xml_list)
+    unique_class_names,all_class_names=replace_del_names(all_class_names,data_dir_replace)
+    create_save_bar_chart(unique_class_names, all_class_names,plot_title,result_dir)
+
+def replace_del_names(all_class_names,dict):
+    '''
+    This function replaces and removes the tags specified in json file
+    input:
+    unique_class_names
+    all_class_names
+    dict
+
+    output:
+    filtered unique_class_names and all_class_names
+    '''
+    if len(dict['tag_replacement'])==0 and len(dict['tag_del'])==0:
+        pass
+    else:
+        r=0
+        for n,i in enumerate(list(all_class_names)):
+            if i in dict['tag_replacement'].keys():
+                all_class_names[n-r]=dict['tag_replacement'][i]
+            if i in dict['tag_del']:
+                all_class_names.remove(i)
+                r+=1
+    unique_class_names=np.unique(np.array(all_class_names))
+    unique_class_names=unique_class_names.tolist()
+    return unique_class_names,all_class_names
