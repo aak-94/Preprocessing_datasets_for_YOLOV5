@@ -1,16 +1,15 @@
 {
     "Datasets": {
-        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan",
-        "Pothole": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/train"
+        "dataset": "path"
     },
     "img_size": 600,
     "replace_del":
     {
         "tag_replacement":
         {
-            "pothole":"D50"            
+            "old_tag":"New_tag"            
         },
-        "tag_del":[]
+        "tag_del":["tag"]
     }
         
     
