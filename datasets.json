@@ -1,6 +1,17 @@
 {
     "Datasets": {
-        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan"
+        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan",
+        "Pothole": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/train"
     },
-    "img_size": 600
+    "img_size": 600,
+    "replace_del":
+    {
+        "tag_replacement":
+        {
+            "pothole":"D50"            
+        },
+        "tag_del":[]
+    }
+        
+    
 }
