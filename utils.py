@@ -272,8 +272,8 @@ def create_data_representation(data_dir,seperator,plot_title,result_dir,data_dir
 
 def create_data_representation(train_test_paths,seperator,plot_title,result_dir,data_dir_replace):
     xml_list, image_list, _,_,_= get_path_lists(train_test_paths,seperator)
-    print('total_annotaitons: ', len(xml_list))
-    print('total_images: ', len(image_list))
+    print('total_annotaitons of ',plot_title,' : ', len(xml_list))
+    print('total_images in',plot_title,' : ', len(image_list))
     all_class_names= get_class_names(xml_list)
     unique_class_names,all_class_names=replace_del_names(all_class_names,data_dir_replace)
     create_save_bar_chart(unique_class_names, all_class_names,plot_title,result_dir)
