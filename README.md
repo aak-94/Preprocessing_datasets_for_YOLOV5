@@ -11,7 +11,7 @@ This toolchain helps to pre-process the  multiple datasets simultaneously and pe
 - filtering the xmls without the trainable object annotations (or tags)
 - resizing of the images and xml files so that complete dataset will have one standard image size.
   Thus multiple datasets with different image sizes can be combined easily to train the network
- - Converts the labels from pascal VOC  format (.xml)  to the YOLO format (.txt)
+- Converts the labels from pascal VOC  format (.xml)  to the YOLO format (.txt)
 - combines multiple dataset to the single dataset and then splits it in train-test datasets
 - generates the bar graph to visualize the dataset distribution before as well as after the split.
 
