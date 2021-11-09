@@ -1,4 +1,4 @@
-# 06_Preprocessing_datasets_for_YOLOV5
+# Preprocessing_datasets_for_YOLOV5
 Toolchain_for_preprocessing_multiple_datasets_for_YOLO_models
 
 ## Goal
