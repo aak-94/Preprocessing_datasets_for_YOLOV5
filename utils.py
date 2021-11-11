@@ -177,11 +177,11 @@ def xml_to_dict(annotation_path,xml_name,image_path,file_name,dict_in,output_xml
                     temp_list=[]
                 else:
                     #read and scale the bnd box dimensions
-                    x_min = round(int(box.find('xmin').text)*scale_x)
-                    y_min = round(int(box.find('ymin').text)*scale_y)
-                    y_min = round(int(box.find('ymin').text)*scale_y)
-                    x_max = round(int(box.find('xmax').text)*scale_x)
-                    y_max = round(int(box.find('ymax').text)*scale_y)
+                    x_min = round(float(box.find('xmin').text)*scale_x)
+                    y_min = round(float(box.find('ymin').text)*scale_y)
+                    y_min = round(float(box.find('ymin').text)*scale_y)
+                    x_max = round(float(box.find('xmax').text)*scale_x)
+                    y_max = round(float(box.find('ymax').text)*scale_y)
 
                     #store new values
                     box.find('xmin').text = str(x_min)
