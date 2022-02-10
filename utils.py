@@ -304,3 +304,21 @@ def replace_del_names(all_class_names,dict):
     unique_class_names=np.unique(np.array(all_class_names))
     unique_class_names=unique_class_names.tolist()
     return unique_class_names,all_class_names
+
+def xml_to_yolo(values,img_size,decimal_limit=20):
+    """
+    This function converts the XML label to YOLO label format
+    [xmin, ymin, xmax, ymax] ->[x_center, Y_center, width, hight]
+
+    input: 
+    values: XMl lable
+    image_size: image size (sqaure image,hence one dimension only)
+    decimal_limit = decimal limit for yolo coordinates, default = 20
+    """
+    x_center=round(((values[1]+values[3])/2)/img_size,decimal_limit)
+    y_center=round(((values[2]+values[4])/2)/img_size,decimal_limit)
+    width =round((values[3]-values[1])/img_size,decimal_limit)
+    height=round((values[4]-values[2])/img_size,decimal_limit)
+
+    return x_center, y_center, width, height
+

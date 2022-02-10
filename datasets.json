@@ -1,16 +1,15 @@
 {
     "Datasets": {
-        "dataset": "path"
+        "Japan": "F:/akshay/Engineering/MS/4. SS-2021/4. Thesis/train/Japan"
     },
-    "img_size": 600,
+    "img_size": 640,
     "replace_del":
     {
         "tag_replacement":
         {
-            "old_tag":"New_tag"            
+            "D01":"D10", 
+            "D11":"D10"                    
         },
-        "tag_del":["tag"]
+        "tag_del":["D0w0"]
     }
-        
-    
 }
