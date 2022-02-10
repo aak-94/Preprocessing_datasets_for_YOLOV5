@@ -26,7 +26,7 @@ Following image shows the working of the complete pre-processing pipeline
 This pipline has been tested with the datasets for [object detection](https://data.mendeley.com/datasets/5ty2wb6gvg/1)
 ## Usage
 - download the repo
-- specify the paths of datasets in the datasets.json file
+- specify the paths of datasets containnig images and xml labels in the datasets.json file
 - specify the desired img size in the datasets.json file
 - run the file intial_filter.py
 
