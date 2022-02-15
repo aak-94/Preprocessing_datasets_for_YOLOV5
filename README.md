@@ -7,8 +7,9 @@ Toolchain_for_preprocessing_multiple_datasets_for_YOLO_models
 
 ## Purpose
 This toolchain helps to pre-process the  multiple datasets simultaneously and performs follwoing tasks:
-- filtering the xmls without corrosponding img file
-- filtering the xmls without the trainable object annotations (or tags)
+- filtering out the xmls without corrosponding img file
+- filtering out the xmls without the trainable object annotations (or tags)
+- merging the  datal labels from two datasets adressing the same feature.
 - resizing of the images and xml files so that complete dataset will have one standard image size.
   Thus multiple datasets with different image sizes can be combined easily to train the network
 - Converts the labels from pascal VOC  format (.xml)  to the YOLO format (.txt)
